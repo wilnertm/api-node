@@ -1,13 +1,21 @@
 const Usuario = require('../models').Usuario;
 const Ciudad = require('../models').Ciudad;
+const db = require('../models/index')
+const Departamento = require('../models').Departamento
 
 module.exports = {
     list(req, res){
         return Usuario
             .findAll({
+                // db.sequelize.query("SELECT public.'Departamentos'.nombre,public.'Ciudads'.nombre,public.'Usuarios'.nombres FROM public.'Departamentos' INNER JOIN public.'Ciudads' ON public.'Ciudads'.id_departamento=public.'Departamentos'.id INNER JOIN public.'Usuarios' ON public.'Usuarios'.id_ciudad=public.'Ciudads'.id;", { type: sequelize.QueryTypes.SELECT})
+
                 include: [{
                     model: Ciudad,
-                    as: 'ciudades'
+                    as: 'ciudades',
+                    include:[{
+                        model: Departamento,
+                        as: 'departamentos'
+                    }]
                 }],
                 order: [
                     ['createdAt', 'DESC'],
