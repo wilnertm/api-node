@@ -43,6 +43,24 @@ module.exports = {
             })
             .catch(error => res.status(400).send(error));
     },
+    
+    findByEmail(req, res){
+        return Usuario
+        .find({
+            where:{
+                email: req.body.email,
+            }
+        })
+        .then(usuario =>{
+            if(!usuario){
+                return res.status(404).send({
+                    message: 'Usuario No Encontrado'
+                });
+            }
+            return res.status(200).send(usuario);        
+        })
+        .catch((error) => res.status(400).send(error))
+    },
     add(req, res){
         return Usuario
             .create({
@@ -108,8 +126,7 @@ module.exports = {
             })
             .catch((error) => res.status(400).send(error));
     },
-
-    findByEmail(req, res){
+    validar(req, res){
         return Usuario
         .find({
             where:{
