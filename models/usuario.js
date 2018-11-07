@@ -13,6 +13,18 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'id_ciudad',
       as: 'ciudades'
     });
+    Usuario.hasMany(models.Actividade, {
+      foreignKey: 'creado_por',
+      as: 'creado'
+    });
+    Usuario.hasMany(models.Actividade, {
+      foreignKey: 'actualizado_por',
+      as: 'actualizado'
+    });
+    Usuario.hasMany(models.Actividades_invitado, {
+      foreignKey: 'id_usuario',
+      as: 'actividad_usuario'
+    })
   };
   return Usuario;
 };
