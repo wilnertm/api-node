@@ -5,6 +5,8 @@ const departamentoController = require('../controllers').departamento;
 const ciudadController = require('../controllers').ciudad;
 const usuarioController = require('../controllers').usuario;
 const actividadController = require('../controllers').actividad;
+const opcionController = require('../controllers').opcion;
+const actividadInvitadoController = require('../controllers').actividad_invitado;
 
 
 
@@ -45,6 +47,12 @@ router.post('/api/actividad', actividadController.add);
 router.put('/api/actividad/:id', actividadController.update);
 router.delete('/api/actividad/:id', actividadController.delete);
 
+/* Rest de las opciones*/ 
 
+router.get('/api/opcion', opcionController.list);
+router.get('/api/opcion/:id', opcionController.getById);
+router.post('/api/opcion', opcionController.add);
+router.put('/api/opcion/:id', opcionController.update);
+router.delete('/api/opcion/:id', opcionController.delete);
 
 module.exports = router;
