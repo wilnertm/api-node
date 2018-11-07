@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     Actividades_invitado.belongsTo(models.Actividade,{
       foreignKey: 'id_actividad',
-      as: 'actividad'
+      as: 'actividades'
     });
     Actividades_invitado.belongsTo(models.Usuario,{
       foreignKey: 'id_usuario',

@@ -1,13 +1,14 @@
 const Actividades_invitado = require ('../models').Actividades_invitado;
-const Actividade = require ('../models').Actividade
+const Actividade = require ('../models').Actividade;
+const Usuario = require ('../models').Usuario;
 
-module.exports ={
+module.exports = {
     list(req,res){
         return Actividades_invitado
         .findAll({
             include: [{
                 model: Usuario,
-                as: 'usuarios'
+                as: 'usuario'
             },{
                 model: Actividade,
                 as: 'actividades'
@@ -17,14 +18,17 @@ module.exports ={
             ],
         })
         .then((actividades_invitados) => res.status(200).send(actividades_invitados))
-        .catch((error) => res.status(400).send(error));
+        .catch((error) => {
+            console.log(error);
+            res.status(400).send(error)
+        });
     },
     getById(req, res){
         return Actividades_invitado
         .findById(req.params.id, {
             include: [{
                 model: Usuario,
-                as: 'usuarios'
+                as: 'usuario'
             },{
                 model: Actividade,
                 as: 'actividades'
@@ -50,7 +54,7 @@ module.exports ={
             id_actividad: req.body.id_actividad,
             acepto: req.body.acepto
         })
-        .then(actividades_invitados = res.status(200).send(actividades_invitados))
+        .then((actividades_invitados) =>{ res.status(200).send(actividades_invitados)})
         .catch((error) =>{
             console.log(error);
             res.status(400).send(error)
@@ -61,7 +65,7 @@ module.exports ={
         .findById(req.params.id, {
             include: [{
                 model: Usuario,
-                as: 'usuarios'
+                as: 'usuario'
             },{
                 model: Actividade,
                 as: 'actividades'
