@@ -51,14 +51,14 @@ app.use('/api/usuario/emailto/:email', function (req, res, next) {
   next();
 });
 
-app.use('/api/authenticate', function (req, res, next) {
+app.use('/api/actividad_invitado', function (req, res, next) {
   console.log('Request Type:', req.method);
   next();
 });
 
 app.use((req,res,next)=>{
-  if (req.body.hasOwnProperty("email")){
-    console.log(req.body.email)
+  if (req.body.hasOwnProperty("id_usuario")){
+    console.log(req.body)
   }
   next();
 });
