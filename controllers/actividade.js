@@ -1,5 +1,6 @@
 const Actividade = require('../models').Actividade
 const Usuario = require('../models').Usuario
+const Actividades_invitado = require('../models').Actividades_invitado
 
 module.exports = {
     list(req, res){
@@ -7,10 +8,10 @@ module.exports = {
         .findAll({
             include: [{
                 model: Usuario,
-                as: 'usuarios'
+                as: 'creadoPor'
             },{
                 model: Actividades_invitado,
-                as: 'ActividadesInvitados'
+                as: 'actividadesInvitado'
             }],
                 order:[
                     ['createdAt', 'DESC'],
@@ -27,10 +28,10 @@ module.exports = {
         .findById(req.params.id, {
             include:[{
                 model: Usuario,
-                as: 'usuarios'
+                as: 'creadoPor'
             },{
                 model: Actividades_invitado,
-                as: 'ActividadesInvitados'
+                as: 'actividadesInvitado'
             }]
         })
         .then((actividades) =>{
@@ -53,7 +54,7 @@ module.exports = {
             fecha_fin: req.body.fecha_fin,
             tipo_actividad: req.body.tipo_actividad,
             estado_actividad: req.body.estado_actividad,
-            creador_por: req.body.creador_por,
+            creado_por: req.body.creado_por,
             actualizado_por: req.body.actualizado_por,
             prioridad: req.body.prioridad
         })
@@ -71,10 +72,10 @@ module.exports = {
         .findById(req.params.id, {
             include: [{
                 model: Usuario,
-                as: 'usuarios'
+                as: 'actualizadoPor'
             },{
                 model: Actividades_invitado,
-                as: 'ActividadesInvitado'
+                as: 'actividadesInvitado'
             }]
         })
         .then((actividades) =>{

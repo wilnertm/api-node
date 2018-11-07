@@ -15,11 +15,11 @@ module.exports = (sequelize, DataTypes) => {
     });
     Usuario.hasMany(models.Actividade, {
       foreignKey: 'creado_por',
-      as: 'creado'
+      as: 'creadoPor'
     });
     Usuario.hasMany(models.Actividade, {
       foreignKey: 'actualizado_por',
-      as: 'actualizado'
+      as: 'actualizadoPor'
     });
     Usuario.hasMany(models.Actividades_invitado, {
       foreignKey: 'id_usuario',

@@ -15,8 +15,8 @@ module.exports = {
         })
         .then((opciones) => res.status(200).send(opciones))
         .catch((error) =>{
-            console.log(erro);
-            res.status(400).send(erro)
+            console.log(error);
+            res.status(400).send(error)
         })
     },
     getById(req,res){
@@ -91,7 +91,7 @@ module.exports = {
                     message: 'Opción no encontrada'
                 });
             }
-            Opcione.destroy({
+            opciones.destroy({
                 where:{
                     id:req.params.is
                 }

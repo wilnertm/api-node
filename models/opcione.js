@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
   Opcione.hasMany(models.Actividade, {
     foreignKey: 'tipo_actividad',
-    as: 'actividad'
+    as: 'actividades'
   })
   };
   return Opcione;

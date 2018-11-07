@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     Actividade.hasMany(models.Actividades_invitado,{
       foreignKey: 'id_actividad',
-      as: 'actividadInvitado'
+      as: 'actividadesInvitado'
     })
   };
   return Actividade;
