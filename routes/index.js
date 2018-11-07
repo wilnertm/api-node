@@ -59,7 +59,7 @@ router.get('/api/actividad_invitado', actividadInvitadoController.list);
 router.get('/api/actividad_invitado/:id', actividadInvitadoController.getById);
 router.post('/api/actividad_invitado', actividadInvitadoController.add);
 router.put('/api/actividad_invitado/:id', actividadInvitadoController.update);
-router.delete('/api/activida_invitado/:id', actividadInvitadoController.delete);
+router.delete('/api/actividad_invitado/:id', actividadInvitadoController.delete);
 
 
 module.exports = router;
