@@ -4,6 +4,7 @@ var router = express.Router();
 const departamentoController = require('../controllers').departamento;
 const ciudadController = require('../controllers').ciudad;
 const usuarioController = require('../controllers').usuario;
+const actividadController = require('../controllers').actividad;
 
 
 
@@ -36,6 +37,13 @@ router.put('/api/usuario/:id', usuarioController.update);
 router.delete('/api/usuario/:id', usuarioController.delete);
 
 /* Rest del login*/
+
+/* Rest de la actividad*/
+router.get('/api/actividad', actividadController.list);
+router.get('/api/actividad/:id', actividadController.getById);
+router.post('/api/actividad', actividadController.add);
+router.put('/api/actividad/:id', actividadController.update);
+router.delete('/api/actividad/:id', actividadController.delete);
 
 
 
