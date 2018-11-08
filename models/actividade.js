@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const Actividade = sequelize.define('Actividade', {
     fecha_inicio: DataTypes.DATE,
     fecha_fin: DataTypes.DATE,
+    asunto: DataTypes.STRING,
     tipo_actividad: DataTypes.INTEGER,
     estado_actividad: DataTypes.INTEGER,
     creado_por: DataTypes.INTEGER,

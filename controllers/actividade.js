@@ -6,6 +6,13 @@ module.exports = {
     list(req, res){
         return Actividade
         .findAll({
+
+            attributes: [
+                'id',
+                ['fecha_inicio', "start"],
+                ['fecha_fin', "end"],
+                ['asunto', "title"]
+            ],
             include: [{
                 model: Usuario,
                 as: 'creadoPor'
@@ -52,6 +59,7 @@ module.exports = {
         .create({
             fecha_inicio: req.body.fecha_inicio,
             fecha_fin: req.body.fecha_fin,
+            asunto: req.body.asunto,
             tipo_actividad: req.body.tipo_actividad,
             estado_actividad: req.body.estado_actividad,
             creado_por: req.body.creado_por,
