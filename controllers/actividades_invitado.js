@@ -79,7 +79,7 @@ module.exports = {
             }
             return actividades_invitados
             .update({
-                acepto: req.body.acepto || actividades_invitados.acepto
+                acepto: req.body.acepto
             })
             .then(actividades_invitados => res.status(200).send(actividades_invitados))
             .catch((error) =>{

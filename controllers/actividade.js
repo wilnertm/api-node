@@ -77,15 +77,7 @@ module.exports = {
     },
     update(req, res){
         return Actividade
-        .findById(req.params.id, {
-            include: [{
-                model: Usuario,
-                as: 'actualizadoPor'
-            },{
-                model: Actividades_invitado,
-                as: 'actividadesInvitado'
-            }]
-        })
+        .findById(req.params.id)
         .then((actividades) =>{
             if(!actividades){
                 return res.status(404).send({
@@ -94,9 +86,9 @@ module.exports = {
             }
             return actividades
             .update({
-                fecha_inicio: req.body.fecha_inicio || actividades.fecha_inicio,
-                fecha_fin: req.body.fecha_fin || actividades.fecha_fin,
-                asunto: req.body.asunto || actividades.asunto
+                fecha_inicio: req.body.fechaInicio,
+                fecha_fin: req.body.fechaFin,
+                asunto: req.body.asunto 
             })
             .then((actividades) => res.status(200).send(actividades))
             .catch((error) =>{

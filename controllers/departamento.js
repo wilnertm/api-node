@@ -61,7 +61,7 @@ module.exports = {
                 }
                 return departamento
                     .update({
-                        nombre: req.body.nombre || departamento.nombre,
+                        nombre: req.body.nombre 
                     })
                     .then(() => res.status(200).send(departamento))
                     .catch((error) => res.status(400).send(error));

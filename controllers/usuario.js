@@ -91,11 +91,11 @@ module.exports = {
                 }
                 return usuario
                     .update({
-                        id_ciudad: req.body.id_ciudad || usuario.id_ciudad,
-                        nombres: req.body.nombres || usuario.nombres,
-                        apellidos: req.body.apellidos || usuario.apellidos,
-                        email: req.body.email  || usuario.email,
-                        password: req.body.password || usuario.password
+                        id_ciudad: req.body.id_ciudad,
+                        nombres: req.body.nombres,
+                        apellidos: req.body.apellidos,
+                        email: req.body.email, 
+                        password: req.body.password 
                     })
                     .then(usuario => res.status(200).send(usuario))
                     .catch(error => res.status(400).send(error));
