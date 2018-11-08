@@ -72,7 +72,7 @@ module.exports = {
                 }
                 return ciudad
                     .update({
-                        nombre: req.body.nombre || ciudad.nombre,
+                        nombre: req.body.nombre
                     })
                     .then((ciudad) => res.status(200).send(ciudad))
                     .catch((error) =>{

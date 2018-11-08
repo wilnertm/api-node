@@ -69,7 +69,7 @@ module.exports = {
             }
             return opciones
             .update({
-                categoria: req.body.categoria || opciones.categoria
+                categoria: req.body.categoria 
             })
             .then( opciones => res.status(200).send(opciones))
             .catch((error) =>{
