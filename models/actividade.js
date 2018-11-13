@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
     estado_actividad: DataTypes.INTEGER,
     creado_por: DataTypes.INTEGER,
     actualizado_por: DataTypes.INTEGER,
-    prioridad: DataTypes.INTEGER
+    prioridad: DataTypes.INTEGER,
+    activo: DataTypes.BOOLEAN
   }, {});
   Actividade.associate = function(models) {
     // associations can be defined here
