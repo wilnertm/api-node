@@ -4,6 +4,8 @@ const usuario = require('./usuario');
 const actividad = require('./actividade');
 const actividad_invitado = require('./actividades_invitado');
 const opcion = require('./opcione');
+const modulo = require('./modulo');
+const nota = require('./nota');
 
 
 module.exports = {
@@ -12,5 +14,7 @@ module.exports = {
     usuario,
     actividad,
     actividad_invitado,
-    opcion
+    opcion,
+    modulo,
+    nota
 }

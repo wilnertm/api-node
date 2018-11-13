@@ -7,6 +7,8 @@ const usuarioController = require('../controllers').usuario;
 const actividadController = require('../controllers').actividad;
 const opcionController = require('../controllers').opcion;
 const actividadInvitadoController = require('../controllers').actividad_invitado;
+const moduloController = require('../controllers').modulo;
+const notaController = require('../controllers').nota;
 
 
 
@@ -54,12 +56,25 @@ router.post('/api/opcion', opcionController.add);
 router.put('/api/opcion/:id', opcionController.update);
 router.delete('/api/opcion/:id', opcionController.delete);
 
-/* */
+/* Rest De Actividades invitados */
 router.get('/api/actividad_invitado', actividadInvitadoController.list);
 router.get('/api/actividad_invitado/:id', actividadInvitadoController.getById);
 router.post('/api/actividad_invitado', actividadInvitadoController.add);
 router.put('/api/actividad_invitado/:id', actividadInvitadoController.update);
 router.delete('/api/actividad_invitado/:id', actividadInvitadoController.delete);
 
+/* Rest De Modulos*/
+router.get('/api/modulo', moduloController.list);
+router.get('/api/modulo/:id', moduloController.getById);
+router.post('/api/modulo', moduloController.add);
+router.put('/api/modulo/:id', moduloController.update);
+router.delete('/api/modulo/:id', moduloController.delete);
+
+/* Rest De Modulos*/
+router.get('/api/nota', notaController.list);
+router.get('/api/nota/:id', notaController.getById);
+router.post('/api/nota', notaController.add);
+router.put('/api/nota/:id', notaController.update);
+router.delete('/api/nota/:id', notaController.delete);
 
 module.exports = router;

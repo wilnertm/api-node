@@ -8,7 +8,9 @@ module.exports = {
         return Usuario
             .findAll({
                 // db.sequelize.query("SELECT public.'Departamentos'.nombre,public.'Ciudads'.nombre,public.'Usuarios'.nombres FROM public.'Departamentos' INNER JOIN public.'Ciudads' ON public.'Ciudads'.id_departamento=public.'Departamentos'.id INNER JOIN public.'Usuarios' ON public.'Usuarios'.id_ciudad=public.'Ciudads'.id;", { type: sequelize.QueryTypes.SELECT})
-
+                where: {
+                    activo: true
+                },
                 include: [{
                     model: Ciudad,
                     as: 'ciudades',
@@ -64,13 +66,12 @@ module.exports = {
     add(req, res){
         return Usuario
             .create({
-
                 id_ciudad: req.body.id_ciudad,
                 nombres: req.body.nombres,
                 apellidos: req.body.apellidos,
                 email: req.body.email,
                 password: req.body.password,
-
+                activo: true
             })
             .then(usuario => res.status(201).send(usuario))
             .catch(error => res.status(400).send(error));

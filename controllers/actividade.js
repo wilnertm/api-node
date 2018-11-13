@@ -68,7 +68,7 @@ module.exports = {
             creado_por: req.body.creado_por,
             actualizado_por: req.body.actualizado_por,
             prioridad: req.body.prioridad,
-            activo: req.body.activo
+            activo: true
         })
         .then((actividades) =>{
             res.status(201).send(actividades)

@@ -5,6 +5,9 @@ module.exports = {
     list(req, res){
         return Opcione
         .findAll({
+            where:{
+                activo: true
+            },
             include: [{
                 model: Actividade,
                 as: 'actividades'
