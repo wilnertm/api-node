@@ -4,7 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     fecha_inicio: DataTypes.DATE,
     fecha_fin: DataTypes.DATE,
     asunto: DataTypes.STRING,
+    descripcion: DataTypes.STRING,
     tipo_actividad: DataTypes.INTEGER,
+    tipo: DataTypes.INTEGER,
     estado_actividad: DataTypes.INTEGER,
     creado_por: DataTypes.INTEGER,
     actualizado_por: DataTypes.INTEGER,
@@ -15,6 +17,14 @@ module.exports = (sequelize, DataTypes) => {
     Actividade.belongsTo(models.Opcione,{
       foreignKey: 'tipo_actividad',
       as: 'opciones'
+    });
+    Actividade.belongsTo(models.Opcione,{
+      foreignKey: 'tipo',
+      as: 'tipoEvento'
+    });
+    Actividade.belongsTo(models.Opcione,{
+      foreignKey: 'prioridad',
+      as: 'opcionPrioridad'
     });
     Actividade.belongsTo(models.Usuario,{
       foreignKey: 'creado_por',
