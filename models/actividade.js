@@ -4,17 +4,28 @@ module.exports = (sequelize, DataTypes) => {
     fecha_inicio: DataTypes.DATE,
     fecha_fin: DataTypes.DATE,
     asunto: DataTypes.STRING,
+    descripcion: DataTypes.STRING,
     tipo_actividad: DataTypes.INTEGER,
+    tipo: DataTypes.INTEGER,
     estado_actividad: DataTypes.INTEGER,
     creado_por: DataTypes.INTEGER,
     actualizado_por: DataTypes.INTEGER,
-    prioridad: DataTypes.INTEGER
+    prioridad: DataTypes.INTEGER,
+    activo: DataTypes.BOOLEAN
   }, {});
   Actividade.associate = function(models) {
     // associations can be defined here
     Actividade.belongsTo(models.Opcione,{
       foreignKey: 'tipo_actividad',
       as: 'opciones'
+    });
+    Actividade.belongsTo(models.Opcione,{
+      foreignKey: 'tipo',
+      as: 'tipoEvento'
+    });
+    Actividade.belongsTo(models.Opcione,{
+      foreignKey: 'prioridad',
+      as: 'opcionPrioridad'
     });
     Actividade.belongsTo(models.Usuario,{
       foreignKey: 'creado_por',

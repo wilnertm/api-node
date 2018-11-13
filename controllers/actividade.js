@@ -6,7 +6,9 @@ module.exports = {
     list(req, res){
         return Actividade
         .findAll({
-
+            where: {
+                activo: true
+            },
             attributes: [
                 'id',
                 ['fecha_inicio', "start"],
@@ -61,10 +63,12 @@ module.exports = {
             fecha_fin: req.body.fecha_fin,
             asunto: req.body.asunto,
             tipo_actividad: req.body.tipo_actividad,
+            tipo: req.body.tipo,
             estado_actividad: req.body.estado_actividad,
             creado_por: req.body.creado_por,
             actualizado_por: req.body.actualizado_por,
-            prioridad: req.body.prioridad
+            prioridad: req.body.prioridad,
+            activo: req.body.activo
         })
         .then((actividades) =>{
             res.status(201).send(actividades)
