@@ -4,18 +4,34 @@ const Modulo = require('../models').Modulo;
 
 module.exports = {
     list(req, res){
-        return Nota
-        .findAll({
-            include: [{
-                model: Modulo,
-                as: 'referenciaModulo'
-            }]
+        return Modulo
+        .findOne({
+            where:{
+                descripcion: req.body.id_referencia,
+            }
         })
-        .then((notas) => res.status(200).send(notas))
-        .catch((error) =>{
-            res.status(400).send(error);
-            console.log(error);
+        .then(modulo =>{
+            return Nota
+            .findAll({
+                where:{
+                    id_referencia: modulo.id,
+                    actividad: req.body.actividad,
+                    activo: true
+                },
+                include: [{
+                    model: Modulo,
+                    as: 'referenciaModulo'
+                }]
+            })
+            .then((notas) => res.status(200).send(notas))
+            .catch((error) =>{
+                res.status(400).send(error)
+            })
             
+        })
+        .catch((error) => {
+            res.status(400).send(error)
+            console.log(error);
         })
     },
     getById(req, res){
@@ -41,15 +57,29 @@ module.exports = {
         })
     },
     add(req, res){
-        return Nota
-        .create({
-            descripcion: req.body.descripcion,
-            id_modulo: req.body.id_modulo,
-            id_referencia: req.body.id_referencia
+        return Modulo
+        .findOne({
+            where:{
+                descripcion: req.body.id_referencia,
+            }
         })
-        .then((notas) => res.status(200).send(notas))
-        .catch((error) =>{
+        .then(modulo =>{
+            return Nota
+            .create({
+                descripcion: req.body.descripcion,
+                actividad: req.body.actividad,
+                id_referencia: modulo.id,
+                activo: true
+            })
+            .then((notas) => res.status(200).send(notas))
+            .catch((error) =>{
+                res.status(400).send(error)
+            })
+            
+        })
+        .catch((error) => {
             res.status(400).send(error)
+            console.log(error);
         })
     },
     update(req, res){

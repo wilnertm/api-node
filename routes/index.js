@@ -71,9 +71,9 @@ router.put('/api/modulo/:id', moduloController.update);
 router.delete('/api/modulo/:id', moduloController.delete);
 
 /* Rest De Modulos*/
-router.get('/api/nota', notaController.list);
+router.post('/api/nota', notaController.list);
 router.get('/api/nota/:id', notaController.getById);
-router.post('/api/nota', notaController.add);
+router.post('/api/notas', notaController.add);
 router.put('/api/nota/:id', notaController.update);
 router.delete('/api/nota/:id', notaController.delete);
 

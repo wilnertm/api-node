@@ -11,7 +11,7 @@ module.exports = {
       descripcion: {
         type: Sequelize.STRING
       },
-      id_modulo: {
+      actividad: {
         type: Sequelize.STRING
       },
       id_referencia: {

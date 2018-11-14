@@ -2,8 +2,9 @@
 module.exports = (sequelize, DataTypes) => {
   const Nota = sequelize.define('Nota', {
     descripcion: DataTypes.STRING,
-    id_modulo: DataTypes.STRING,
-    id_referencia: DataTypes.INTEGER
+    actividad: DataTypes.STRING,
+    id_referencia: DataTypes.INTEGER,
+    activo: DataTypes.BOOLEAN
   }, {});
   Nota.associate = function(models) {
     // associations can be defined here
