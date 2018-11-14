@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     Actividade.belongsTo(models.Opcione,{
       foreignKey: 'prioridad',
       as: 'opcionPrioridad'
-    });
+    }); 
     Actividade.belongsTo(models.Usuario,{
       foreignKey: 'creado_por',
       as: 'creadoPor'

@@ -10,7 +10,14 @@ module.exports = {
             },
             include: [{
                 model: Actividade,
-                as: 'actividades'
+                as: 'opciones'
+            },
+            {
+                model: Actividade,
+                as: 'tipoEvento'
+            },{
+                model: Actividade,
+                as: 'opcionPrioridad'
             }],
             order: [
                 ['createdAt', 'DESC']

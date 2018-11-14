@@ -1,6 +1,7 @@
 const Actividade = require('../models').Actividade
 const Usuario = require('../models').Usuario
 const Actividades_invitado = require('../models').Actividades_invitado
+const Opcione = require('../models').Opcione;
 
 module.exports = {
     list(req, res){
@@ -21,7 +22,18 @@ module.exports = {
             },{
                 model: Actividades_invitado,
                 as: 'actividadesInvitado'
-            }],
+            },
+            {
+                model: Opcione,
+                as: 'opciones'
+            },{
+                model: Opcione,
+                as: 'opcionPrioridad'
+            },{
+                model: Opcione,
+                as: 'tipoEvento'
+            }
+            ],
                 order:[
                     ['createdAt', 'DESC'],
                 ],
@@ -41,6 +53,15 @@ module.exports = {
             },{
                 model: Actividades_invitado,
                 as: 'actividadesInvitado'
+            },            {
+                model: Opcione,
+                as: 'opciones'
+            },{
+                model: Opcione,
+                as: 'opcionPrioridad'
+            },{
+                model: Opcione,
+                as: 'tipoEvento'
             }]
         })
         .then((actividades) =>{
