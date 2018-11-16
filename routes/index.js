@@ -40,6 +40,7 @@ router.get('/api/usuario/:id', usuarioController.getById);
 router.post('/api/usuario', usuarioController.add);
 router.post('/api/usuario/emailto/:email,:password', usuarioController.validar);
 router.post('/api/usuario/email', usuarioController.findByEmail);
+router.post('/api/findusuario', usuarioController.complete);
 router.put('/api/usuario/:id', usuarioController.update);
 router.delete('/api/usuario/:id', usuarioController.delete);
 

@@ -51,13 +51,13 @@ app.use('/api/usuario/emailto/:email', function (req, res, next) {
   next();
 });
 
-app.use('/api/actividad_invitado', function (req, res, next) {
-  console.log('Request Type:', req.method);
+app.use('/api/findusuario/:nombres', function (req, res, next) {
+  console.log('Request Type:', req.headers);
   next();
 });
 
 app.use((req,res,next)=>{
-  if (req.body.hasOwnProperty("id_usuario")){
+  if (req.body.hasOwnProperty("nombres")){
     console.log(req.body)
   }
   next();

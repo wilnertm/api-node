@@ -2,6 +2,8 @@ const Usuario = require('../models').Usuario;
 const Ciudad = require('../models').Ciudad;
 const db = require('../models/index')
 const Departamento = require('../models').Departamento
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op
 
 module.exports = {
     list(req, res){
@@ -144,5 +146,29 @@ module.exports = {
             return res.status(200).send(usuario);        
         })
         .catch((error) => res.status(400).send(error))
+    },
+    complete(req, res){
+        return Usuario
+        .findAll({
+            where:{
+                nombres: {
+                    $ilike: "%" + req.body.nombres + "%" 
+                    // [Op.iLike]: "%" + req.params.nombres + "%"
+                }
+            }
+        })
+        .then( (usuario) => {
+            if(!usuario){
+                res.status(404).send({
+                    message: 'Usuario no encontrado'
+                })
+            }
+            return res.status(200).send(usuario)
+        })
+        .catch( (error) =>{
+            res.status(400).send(error);
+            console.log(error);
+            
+        })
     }
 };
