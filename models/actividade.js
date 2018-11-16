@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
     creado_por: DataTypes.INTEGER,
     actualizado_por: DataTypes.INTEGER,
     prioridad: DataTypes.INTEGER,
-    activo: DataTypes.BOOLEAN
+    activo: DataTypes.BOOLEAN,
+    cliente_creo: DataTypes.INTEGER
   }, {});
   Actividade.associate = function(models) {
     // associations can be defined here
@@ -34,6 +35,10 @@ module.exports = (sequelize, DataTypes) => {
     Actividade.belongsTo(models.Usuario,{
       foreignKey: 'actualizado_por',
       as: 'actualizadoPor'
+    });
+    Actividade.belongsTo(models.Cliente,{
+      foreignKey: 'cliente_creo',
+      as: 'clienteCreo'
     });
     Actividade.hasMany(models.Actividades_invitado,{
       foreignKey: 'id_actividad',

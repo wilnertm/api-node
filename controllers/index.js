@@ -6,6 +6,9 @@ const actividad_invitado = require('./actividades_invitado');
 const opcion = require('./opcione');
 const modulo = require('./modulo');
 const nota = require('./nota');
+const correo = require('./correo');
+const telefono = require('./telefono');
+const cliente = require('./cliente');
 
 
 module.exports = {
@@ -16,5 +19,8 @@ module.exports = {
     actividad_invitado,
     opcion,
     modulo,
-    nota
+    nota,
+    correo,
+    telefono,
+    cliente
 }

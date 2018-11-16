@@ -9,6 +9,9 @@ const opcionController = require('../controllers').opcion;
 const actividadInvitadoController = require('../controllers').actividad_invitado;
 const moduloController = require('../controllers').modulo;
 const notaController = require('../controllers').nota;
+const correoController = require('../controllers').correo;
+const telefonoController = require('../controllers').telefono;
+const clienteController = require('../controllers').cliente;
 
 
 
@@ -76,5 +79,26 @@ router.get('/api/nota/:id', notaController.getById);
 router.post('/api/notas', notaController.add);
 router.put('/api/nota/:id', notaController.update);
 router.delete('/api/nota/:id', notaController.delete);
+
+/* Rest De Correos*/
+router.get('/api/correo', correoController.list);
+router.get('/api/correo/:id', correoController.getById);
+router.post('/api/correo', correoController.add);
+router.put('/api/correo/:id', correoController.update);
+router.delete('/api/correo/:id', correoController.delete);
+
+/* Rest De Telefonos*/
+router.get('/api/telefono', telefonoController.list);
+router.get('/api/telefono/:id', telefonoController.getById);
+router.post('/api/telefono', telefonoController.add);
+router.put('/api/telefono/:id', telefonoController.update);
+router.delete('/api/telefono/:id', telefonoController.delete);
+
+/* Rest De Clientes*/
+router.get('/api/cliente', clienteController.list);
+router.get('/api/cliente/:id', clienteController.getById);
+router.post('/api/cliente', clienteController.add);
+router.put('/api/cliente/:id', clienteController.update);
+router.delete('/api/cliente/:id', clienteController.delete);
 
 module.exports = router;

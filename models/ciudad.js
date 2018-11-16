@@ -14,6 +14,11 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'id_ciudad',
       as: 'usuarios',
     });
+    Ciudad.hasMany(models.Cliente, {
+      foreignKey: 'id_ciudad',
+      as: 'ciudadCliente',
+    });
+
   };
   return Ciudad;
 };
