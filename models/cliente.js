@@ -4,7 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     nombre: DataTypes.STRING,
     password: DataTypes.STRING,
     activo: DataTypes.BOOLEAN,
-    id_ciudad: DataTypes.INTEGER
+    id_ciudad: DataTypes.INTEGER,
+    nit: DataTypes.STRING,
+
   }, {});
   Cliente.associate = function(models) {
     // associations can be defined here
@@ -17,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       as: 'telefonosCliente'
     });
     Cliente.hasMany( models.Actividade, {
-      foreignKey: 'cliente_creo',
+      foreignKey: 'cliente_id',
       as: 'clienteCreo'
     });
     Cliente.belongsTo( models.Ciudad, {

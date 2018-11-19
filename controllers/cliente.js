@@ -63,7 +63,8 @@ module.exports = {
             nombre: req.body.nombre,
             activo: true,
             password: req.body.password,
-            id_ciudad: req.body.id_ciudad
+            id_ciudad: req.body.id_ciudad,
+            nit: req.body.nit
         })
         .then ( (cliente) => res.status(200).send(cliente))
         .catch ( (error) =>{
@@ -133,6 +134,30 @@ module.exports = {
             })
         })
         .catch ( (error) =>{
+            res.status(400).send(error);
+            console.log(error);
+            
+        })
+    },
+    complete(req, res){
+        return Cliente
+        .findAll({
+            where:{
+                nombre: {
+                    $ilike: "%" + req.body.nombre + "%" 
+                    // [Op.iLike]: "%" + req.params.nombres + "%"
+                }
+            }
+        })
+        .then( (cliente) => {
+            if(!cliente){
+                res.status(404).send({
+                    message: 'Usuario no encontrado'
+                })
+            }
+            return res.status(200).send(cliente)
+        })
+        .catch( (error) =>{
             res.status(400).send(error);
             console.log(error);
             

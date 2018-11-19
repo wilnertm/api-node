@@ -2,6 +2,7 @@ const Actividade = require('../models').Actividade
 const Usuario = require('../models').Usuario
 const Actividades_invitado = require('../models').Actividades_invitado
 const Opcione = require('../models').Opcione;
+const Cliente = require('../models').Cliente;
 
 module.exports = {
     list(req, res){
@@ -32,6 +33,9 @@ module.exports = {
             },{
                 model: Opcione,
                 as: 'tipoEvento'
+            },{
+                model: Cliente,
+                as: 'clienteCreo'
             }
             ],
                 order:[
@@ -62,6 +66,12 @@ module.exports = {
             },{
                 model: Opcione,
                 as: 'tipoEvento'
+            },{
+                model: Opcione,
+                as: 'estado'
+            },{
+                model: Cliente,
+                as: 'clienteCreo'
             }]
         })
         .then((actividades) =>{
@@ -89,6 +99,7 @@ module.exports = {
             creado_por: req.body.creado_por,
             actualizado_por: req.body.actualizado_por,
             prioridad: req.body.prioridad,
+            cliente_id: req.body.idCliente,
             activo: true
         })
         .then((actividades) =>{
@@ -113,7 +124,8 @@ module.exports = {
             .update({
                 fecha_inicio: req.body.fechaInicio,
                 fecha_fin: req.body.fechaFin,
-                asunto: req.body.asunto 
+                asunto: req.body.asunto,
+                cliente_id: req.body.idCliente,
             })
             .then((actividades) => res.status(200).send(actividades))
             .catch((error) =>{

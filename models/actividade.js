@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     actualizado_por: DataTypes.INTEGER,
     prioridad: DataTypes.INTEGER,
     activo: DataTypes.BOOLEAN,
-    cliente_creo: DataTypes.INTEGER
+    cliente_id: DataTypes.INTEGER
   }, {});
   Actividade.associate = function(models) {
     // associations can be defined here
@@ -28,6 +28,10 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'prioridad',
       as: 'opcionPrioridad'
     }); 
+    Actividade.belongsTo(models.Opcione,{
+      foreignKey: 'estado_actividad',
+      as: 'estado'
+    }); 
     Actividade.belongsTo(models.Usuario,{
       foreignKey: 'creado_por',
       as: 'creadoPor'
@@ -37,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
       as: 'actualizadoPor'
     });
     Actividade.belongsTo(models.Cliente,{
-      foreignKey: 'cliente_creo',
+      foreignKey: 'cliente_id',
       as: 'clienteCreo'
     });
     Actividade.hasMany(models.Actividades_invitado,{

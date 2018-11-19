@@ -101,5 +101,7 @@ router.get('/api/cliente/:id', clienteController.getById);
 router.post('/api/cliente', clienteController.add);
 router.put('/api/cliente/:id', clienteController.update);
 router.delete('/api/cliente/:id', clienteController.delete);
+router.post('/api/findCliente', clienteController.complete);
+
 
 module.exports = router;

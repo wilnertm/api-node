@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'prioridad',
       as: 'opcionPrioridad',
     });
+    Opcione.hasMany(models.Actividade, {
+      foreignKey: 'estado_actividad',
+      as: 'estado',
+    });
     Opcione.belongsTo(models.Modulo, {
       foreignKey: 'modulo',
       as: 'referenciaOpciones',
