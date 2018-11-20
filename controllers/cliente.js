@@ -58,15 +58,31 @@ module.exports = {
             })
     },
     add(req, res) {
-        return Cliente
-            .create({
+            Cliente.create({
                 nombre: req.body.nombre,
                 activo: true,
                 cn: req.body.cn,
                 id_ciudad: req.body.id_ciudad,
                 nit: req.body.nit
             })
-            .then((cliente) => res.status(200).send(cliente))
+            .then((cliente) => {
+                let correos = req.body.correos
+                if(Array.isArray(correos)){
+                    for(let i = 0; i < correos.length; i++){
+                        correos.create({
+                            include: [{
+                                model: Correo,
+                                as: 'correosCliente'
+                            }],
+                            id_cliente: cliente.id,
+                            email:correos[i].email
+                        })
+                    }
+                }
+                res.status(200).send(cliente)
+                return ;
+            })
+
             .catch((error) => {
                 res.status(400).send(error);
                 console.log(error);
@@ -143,11 +159,6 @@ module.exports = {
         return Cliente
             .findAll({
                 where: {
-                    // nombre: {
-                    //     $ilike: "%" + req.body.nombre + "%" 
-                    //     // [Op.iLike]: "%" + req.params.nombres + "%"
-                    // }
-
                     $or: [
                         {
                             nombre: {
@@ -194,7 +205,6 @@ module.exports = {
             .catch((error) => {
                 res.status(400).send(error)
                 console.log(error);
-
             })
     },
 }
