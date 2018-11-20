@@ -99,6 +99,7 @@ router.delete('/api/telefono/:id', telefonoController.delete);
 router.get('/api/cliente', clienteController.list);
 router.get('/api/cliente/:id', clienteController.getById);
 router.post('/api/cliente', clienteController.add);
+router.post('/api/cliente/cn', clienteController.findByCn);
 router.put('/api/cliente/:id', clienteController.update);
 router.delete('/api/cliente/:id', clienteController.delete);
 router.post('/api/findCliente', clienteController.complete);
