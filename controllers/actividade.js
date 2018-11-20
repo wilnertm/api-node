@@ -4,6 +4,7 @@ const Actividades_invitado = require('../models').Actividades_invitado
 const Opcione = require('../models').Opcione;
 const Cliente = require('../models').Cliente;
 
+
 module.exports = {
     list(req, res){
         return Actividade
@@ -88,8 +89,12 @@ module.exports = {
         })
     },
     add(req, res){
-        return Actividade
-        .create({
+        // return Actividade
+        Actividade.create({
+            // include: [{
+            //     model: Actividades_invitado,
+            //     as: 'actividadesInvitado',
+            // }],
             fecha_inicio: req.body.fecha_inicio,
             fecha_fin: req.body.fecha_fin,
             asunto: req.body.asunto,
@@ -102,8 +107,24 @@ module.exports = {
             cliente_id: req.body.idCliente,
             activo: true
         })
-        .then((actividades) =>{
-            res.status(201).send(actividades)
+        .then(  (actividades) =>{
+            
+            let invitados = req.body.usuario
+            if(Array.isArray(invitados)){
+                for(let index = 0;index < invitados.length; index ++ ){
+                    Actividades_invitado.create({
+                        include: [{
+                            model: Actividades_invitado,
+                            as: 'actividadesInvitado',
+                        }],            
+                        acepto: false,
+                        id_usuario: invitados[index].id,
+                        id_actividad: actividades.id,
+                    })
+                }
+            }
+            res.status(200).send(actividades)
+            return ;
         })
         .catch((error) =>{
             console.log(error);
