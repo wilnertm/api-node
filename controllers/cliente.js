@@ -69,13 +69,26 @@ module.exports = {
                 let correos = req.body.correos
                 if(Array.isArray(correos)){
                     for(let i = 0; i < correos.length; i++){
-                        correos.create({
+                        Correo.create({
                             include: [{
                                 model: Correo,
                                 as: 'correosCliente'
                             }],
                             id_cliente: cliente.id,
-                            email:correos[i].email
+                            email:correos[i]
+                        })
+                    }
+                }
+                let telefonos = req.body.telefonos
+                if(Array.isArray(telefonos)){
+                    for(let a = 0; a < telefonos.length; a++){
+                        Telefono.create({
+                            include: [{
+                                model: Telefono,
+                                as: 'telefonosCliente'
+                            }],
+                            id_cliente: cliente.id,
+                            numero: telefonos[a]
                         })
                     }
                 }
