@@ -58,30 +58,34 @@ module.exports = {
             })
     },
     add(req, res) {
-            Cliente.create({
-                nombre: req.body.nombre,
-                activo: true,
-                cn: req.body.cn,
-                id_ciudad: req.body.id_ciudad,
-                nit: req.body.nit
-            })
+        // let detail = req.body.detail
+        // if (Array.isArray(detail)) {
+        //     for (let x = 0; x < detail.length; x++) {
+        //     }}
+        Cliente.create({
+            nombre: req.body.detail.nombre,
+            activo: true,
+            cn: req.body.detail.cn,
+            id_ciudad: req.body.detail.id_ciudad,
+            nit: req.body.detail.nit
+        })
             .then((cliente) => {
                 let correos = req.body.correos
-                if(Array.isArray(correos)){
-                    for(let i = 0; i < correos.length; i++){
+                if (Array.isArray(correos)) {
+                    for (let i = 0; i < correos.length; i++) {
                         Correo.create({
                             include: [{
                                 model: Correo,
                                 as: 'correosCliente'
                             }],
                             id_cliente: cliente.id,
-                            email:correos[i]
+                            email: correos[i]
                         })
                     }
                 }
                 let telefonos = req.body.telefonos
-                if(Array.isArray(telefonos)){
-                    for(let a = 0; a < telefonos.length; a++){
+                if (Array.isArray(telefonos)) {
+                    for (let a = 0; a < telefonos.length; a++) {
                         Telefono.create({
                             include: [{
                                 model: Telefono,
@@ -93,13 +97,11 @@ module.exports = {
                     }
                 }
                 res.status(200).send(cliente)
-                return ;
+                return;
             })
-
             .catch((error) => {
                 res.status(400).send(error);
                 console.log(error);
-
             })
     },
     update(req, res) {
@@ -132,13 +134,11 @@ module.exports = {
                     .catch((error) => {
                         res.status(400).send(error);
                         console.log(error);
-
                     })
             })
             .catch((error) => {
                 res.status(400).send(error);
                 console.log(error);
-
             })
     },
     delete(req, res) {
@@ -159,13 +159,11 @@ module.exports = {
                     .catch((error) => {
                         res.status(400).send(error);
                         console.log(error);
-
                     })
             })
             .catch((error) => {
                 res.status(400).send(error);
                 console.log(error);
-
             })
     },
     complete(req, res) {
@@ -197,7 +195,6 @@ module.exports = {
             .catch((error) => {
                 res.status(400).send(error);
                 console.log(error);
-
             })
     },
     findByCn(req, res) {
