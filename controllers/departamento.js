@@ -68,26 +68,23 @@ module.exports = {
             })
             .catch((error) => res.status(200).send(error));
     },
-    delete(req, res){
+    delete(req, res) {
         return Departamento
             .findById(req.params.id)
-            .then(departamento =>{
-                if(!departamento){
+            .then(departamento => {
+                if (!departamento) {
                     return res.status(404).send({
-                        message: 'Departamento no encontrado'
+                        message: 'departamento no encontrado'
                     });
                 }
                 Departamento.destroy({
-                    where:{id:req.params.id}
+                    where: {
+                        id: req.params.id
+                    }
                 })
-                .then(() => res.status(204).send('Borrado Exitoso'))
-                .catch((error) =>{
-                        console.log(error)
-                        res.status(400).send(error)
-                });
-                    
+                    .then(() => res.status(204).send())
+                    .catch((error) => res.status(400).send(error));
             })
-            .catch((error) =>{ console.log(error)
-                res.status(400).send(error)});
+            .catch((error) => res.status(400).send(error));
     },
 };

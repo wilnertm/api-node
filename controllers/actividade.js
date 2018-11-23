@@ -90,6 +90,9 @@ module.exports = {
     },
     add(req, res) {
         // return Actividade
+        if(req.body.fecha_fin ="\'Invalid date\'"){
+            req.body.fecha_fin = req.body.fecha_inicio;
+        }
         Actividade.create({
             // include: [{
             //     model: Actividades_invitado,
