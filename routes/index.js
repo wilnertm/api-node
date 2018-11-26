@@ -96,7 +96,7 @@ router.put('/api/telefono/:id', telefonoController.update);
 router.delete('/api/telefono/:id', telefonoController.delete);
 
 /* Rest De Clientes*/
-router.get('/api/cliente', clienteController.list);
+router.post('/api/clientes', clienteController.list);
 router.get('/api/cliente/:id', clienteController.getById);
 router.post('/api/cliente', clienteController.add);
 router.post('/api/cliente/cn', clienteController.findByCn);

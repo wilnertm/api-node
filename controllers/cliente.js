@@ -8,20 +8,50 @@ const Ciudads = require('../models').Ciudad;
 module.exports = {
     list(req, res) {
         return Cliente
-            .findAll({
+            // .findAll({
+            //     where: {
+            //         activo: true
+            //     },
+            //     limit: 10,
+            //     include: [{
+            //         model: Correo,
+            //         as: 'correosCliente'
+            //     }, {
+            //         model: Telefono,
+            //         as: 'telefonosCliente'
+            //     }, {
+            //         model: Ciudads,
+            //         as: 'ciudadCliente'
+            //     }]
+            // })
+            .findAndCountAll({
                 where: {
-                    activo: true
+                    activo: true,
+                    $or: [
+                        {
+                            nombre: {
+                                $ilike: "%" + req.body.nombre + "%",
+                            }
+                        },
+                        {
+                            cn: {
+                                $ilike: "%" + req.body.nombre + "%"
+                            }
+                        }
+                    ]
                 },
                 include: [{
                     model: Correo,
-                    as: 'correosCliente'
+                    as: 'correosCliente',
                 }, {
                     model: Telefono,
-                    as: 'telefonosCliente'
+                    as: 'telefonosCliente',
                 }, {
                     model: Ciudads,
-                    as: 'ciudadCliente'
-                }]
+                    as: 'ciudadCliente',
+                }],
+                limit: 10,
+                offset: req.body.rango,
             })
             .then((cliente) => res.status(200).send(cliente))
             .catch((error) => {
@@ -58,10 +88,6 @@ module.exports = {
             })
     },
     add(req, res) {
-        // let detail = req.body.detail
-        // if (Array.isArray(detail)) {
-        //     for (let x = 0; x < detail.length; x++) {
-        //     }}
         Cliente.create({
             nombre: req.body.detail.nombre,
             activo: true,
