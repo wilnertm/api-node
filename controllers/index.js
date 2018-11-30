@@ -9,6 +9,7 @@ const nota = require('./nota');
 const correo = require('./correo');
 const telefono = require('./telefono');
 const cliente = require('./cliente');
+const login = require('./login');
 
 
 module.exports = {
@@ -22,5 +23,6 @@ module.exports = {
     nota,
     correo,
     telefono,
-    cliente
+    cliente,
+    login
 }
