@@ -29,7 +29,6 @@ router.put('/api/departamento/:id', departamentoController.update);
 router.delete('/api/departamento/:id', departamentoController.delete);
 
 /*Rest de la ciudad */
-router.post('/api/ciudades', ciudadController.list);
 router.get('/api/ciudad', ciudadController.list);
 router.get('/api/ciudad/:id', ciudadController.getById);
 router.post('/api/ciudad', ciudadController.add);
@@ -37,7 +36,6 @@ router.put('/api/ciudad/:id', ciudadController.update);
 router.delete('/api/ciudad/:id', ciudadController.delete);
 
 /* Rest del usuario*/
-router.post('/api/usuarios', usuarioController.list);
 router.get('/api/usuario', usuarioController.list);
 router.get('/api/usuario/:id', usuarioController.getById);
 router.post('/api/usuario', usuarioController.add);

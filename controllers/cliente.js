@@ -8,22 +8,6 @@ const Ciudads = require('../models').Ciudad;
 module.exports = {
     list(req, res) {
         return Cliente
-            // .findAll({
-            //     where: {
-            //         activo: true
-            //     },
-            //     limit: 10,
-            //     include: [{
-            //         model: Correo,
-            //         as: 'correosCliente'
-            //     }, {
-            //         model: Telefono,
-            //         as: 'telefonosCliente'
-            //     }, {
-            //         model: Ciudads,
-            //         as: 'ciudadCliente'
-            //     }]
-            // })
             .findAndCountAll({
                 where: {
                     activo: true,
@@ -84,7 +68,6 @@ module.exports = {
             .catch((error) => {
                 res.status(400).send(error);
                 console.log(error);
-
             })
     },
     add(req, res) {

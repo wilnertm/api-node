@@ -21,6 +21,7 @@ module.exports = {
                     jwt.sign({ usuario }, 'secretkey', (err, token) => {
                         res.json({
                             message: 'Login Ok',
+                            // token: usuario.id+token
                             token
                         });
                         return;
