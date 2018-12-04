@@ -31,7 +31,6 @@ module.exports = {
                             nombres: usuario.nombres + " " + usuario.apellidos,
                             identificador: usuario.id,
                             rol: usuario.rol
-                            
                         });
                         return;
                     });

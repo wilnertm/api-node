@@ -101,7 +101,7 @@ module.exports = {
             tipo_actividad: req.body.tipo_actividad,
             tipo: req.body.tipo,
             estado_actividad: req.body.estado_actividad,
-            creado_por: req.body.creado_por,
+            creado_por: req.body.creadoPor,
             actualizado_por: req.body.actualizado_por,
             prioridad: req.body.prioridad,
             cliente_id: req.body.idCliente,
@@ -145,6 +145,7 @@ module.exports = {
                         fecha_fin: req.body.fechaFin,
                         asunto: req.body.asunto,
                         cliente_id: req.body.idCliente,
+                        actualizado_por: req.body.actualizadoPor
                     })
                     .then((actividades) => res.status(200).send(actividades))
                     .catch((error) => {
@@ -181,5 +182,50 @@ module.exports = {
                 console.log(error);
                 res.status(400).send(error)
             })
-    }
+    },
+    createUser(req, res) {
+        console.log("CREADO POR: ",req.body.creadoPor);
+        return Actividade
+            .findAll({
+                where: {
+                    activo: true,
+                    creado_por: req.body.creadoPor
+                },
+                attributes: [
+                    'id',
+                    ['fecha_inicio', "start"],
+                    ['fecha_fin', "end"],
+                    ['asunto', "title"]
+                ],
+                include: [{
+                    model: Usuario,
+                    as: 'creadoPor'
+                }, {
+                    model: Actividades_invitado,
+                    as: 'actividadesInvitado'
+                },
+                {
+                    model: Opcione,
+                    as: 'opciones'
+                }, {
+                    model: Opcione,
+                    as: 'opcionPrioridad'
+                }, {
+                    model: Opcione,
+                    as: 'tipoEvento'
+                }, {
+                    model: Cliente,
+                    as: 'clienteCreo'
+                }
+                ],
+                order: [
+                    ['createdAt', 'DESC'],
+                ],
+            })
+            .then((actividades) => res.status(200).send(actividades))
+            .catch((error) => {
+                console.log(error);
+                res.status(400).send(error);
+            });
+    },
 };

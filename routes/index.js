@@ -50,6 +50,7 @@ router.post('/api/login', loginController.validar);
 
 /* Rest de la actividad*/
 router.get('/api/actividad', actividadController.list);
+router.post('/api/actividad_usuario', actividadController.createUser);
 router.get('/api/actividad/:id', actividadController.getById);
 router.post('/api/actividad', actividadController.add);
 router.put('/api/actividad/:id', actividadController.update);
