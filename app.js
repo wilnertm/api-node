@@ -64,7 +64,6 @@ function prueba1(req, res, next) {
         return;
       }
       else {
-        authData
         next();
       }
     });

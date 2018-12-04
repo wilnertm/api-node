@@ -1,7 +1,7 @@
 const Usuario = require('../models').Usuario;
+const Rol = require('../models').Rol;
 const jwt = require('jsonwebtoken');
 var express = require('express');
-var app = express();
 
 module.exports = {
     validar(req, res) {
@@ -9,20 +9,29 @@ module.exports = {
             .find({
                 where: {
                     email: req.body.email,
-                    password: req.body.password
-                }
+                    password: req.body.password,
+                    activo: true
+                },
+                include: [{
+                    model: Rol,
+                    as: 'rol'
+                }]
             })
             .then(usuario => {
                 if (!usuario) {
                     return res.status(404).send({
                         message: 'Usuario No Encontrado'
                     });
-                } else {
+                }
+                else {
                     jwt.sign({ usuario }, 'secretkey', (err, token) => {
                         res.json({
                             message: 'Login Ok',
-                            // token: usuario.id+token
-                            token
+                            token,
+                            nombres: usuario.nombres + " " + usuario.apellidos,
+                            identificador: usuario.id,
+                            rol: usuario.rol
+                            
                         });
                         return;
                     });

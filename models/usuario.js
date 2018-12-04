@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     nombres: DataTypes.STRING,
     apellidos: DataTypes.STRING,
     id_ciudad: DataTypes.INTEGER,
+    id_rol: DataTypes.INTEGER,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     activo: DataTypes.BOOLEAN
@@ -13,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     Usuario.belongsTo(models.Ciudad, {
       foreignKey: 'id_ciudad',
       as: 'ciudades'
+    });
+    Usuario.belongsTo(models.Rol, {
+      foreignKey: 'id_rol',
+      as: 'rol'
     });
     Usuario.hasMany(models.Actividade, {
       foreignKey: 'creado_por',
