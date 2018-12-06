@@ -9,8 +9,7 @@ module.exports = {
             .find({
                 where: {
                     email: req.body.email,
-                    password: req.body.password,
-                    activo: true
+                    password: req.body.password                
                 },
                 include: [{
                     model: Rol,
@@ -18,6 +17,12 @@ module.exports = {
                 }]
             })
             .then(usuario => {
+                console.log("ACTIVO: ",usuario.activo)
+                if(usuario.activo == false){
+                    return res.status(403).send({
+                        message: 'Usuario bloqueado comunicate con el administrador.'
+                    })
+                }
                 if (!usuario) {
                     return res.status(404).send({
                         message: 'Usuario No Encontrado'
