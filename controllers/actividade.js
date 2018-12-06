@@ -3,7 +3,7 @@ const Usuario = require('../models').Usuario
 const Actividades_invitado = require('../models').Actividades_invitado
 const Opcione = require('../models').Opcione;
 const Cliente = require('../models').Cliente;
-
+const db = require('../models/index') 
 
 module.exports = {
     list(req, res) {
@@ -108,6 +108,15 @@ module.exports = {
             activo: true
         })
             .then((actividades) => {
+                Actividades_invitado.create({
+                    include: [{
+                        model: Actividades_invitado,
+                        as: 'actividadesInvitado',
+                    }],
+                    acepto: true,
+                    id_usuario: req.body.creadoPor,
+                    id_actividad: actividades.id,
+                });
                 let invitados = req.body.usuario
                 if (Array.isArray(invitados)) {
                     for (let index = 0; index < invitados.length; index++) {
@@ -184,12 +193,11 @@ module.exports = {
             })
     },
     createUser(req, res) {
-        console.log("CREADO POR: ",req.body.creadoPor);
         return Actividade
             .findAll({
                 where: {
                     activo: true,
-                    creado_por: req.body.creadoPor
+                    creado_por: req.body.creadoPor,
                 },
                 attributes: [
                     'id',
@@ -222,7 +230,14 @@ module.exports = {
                     ['createdAt', 'DESC'],
                 ],
             })
-            .then((actividades) => res.status(200).send(actividades))
+            .then((results) => {
+                db.sequelize.query(`SELECT fecha_inicio as start, fecha_fin as end,asunto as title FROM "Actividades" INNER JOIN "Actividades_invitados" ON "Actividades".id="Actividades_invitados".id_actividad 
+                WHERE "Actividades_invitados".id_usuario = ${req.body.creadoPor}; ` )
+                .spread((actividades, metadata) => {
+                    // Results will be an empty array and metadata will contain the number of affected rows.
+                    res.status(200).send(actividades)
+                })              
+            })
             .catch((error) => {
                 console.log(error);
                 res.status(400).send(error);

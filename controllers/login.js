@@ -42,29 +42,5 @@ module.exports = {
                 }
             })
             .catch((error) => res.status(400).send(error))
-    },
-
-    //Verificador de sesion
-    verifyToken(req, res, next) {
-        // Trae los valores del encabezado
-        const bearerHeader = req.headers['authorization'];
-        // Verifica si el bearer esta definido o no
-        if (typeof bearerHeader !== 'undefined') {
-            //Se eliminan los espacios del bearer si se tiene
-            const bearer = bearerHeader.split(' ');
-            // Trae los valores del arreglo
-            const bearerToken = bearer[1];
-            // Edita el token
-            req.token = bearerToken;
-            // Siguiente ejecución del middleware
-            next();
-        } else {
-            // Respuesta si los valores no son validos Forbidden
-            res.sendStatus(403);
-        }
     }
-
-
-
-
 }
