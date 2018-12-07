@@ -3,13 +3,12 @@ const Ciudad = require('../models').Ciudad;
 const db = require('../models/index')
 const Departamento = require('../models').Departamento
 const Sequelize = require('sequelize');
-const Op = Sequelize.Op
+const sha_512 = require('../encrypt/hash');
 
 module.exports = {
     list(req, res) {
         return Usuario
             .findAll({
-                // db.sequelize.query("SELECT public.'Departamentos'.nombre,public.'Ciudads'.nombre,public.'Usuarios'.nombres FROM public.'Departamentos' INNER JOIN public.'Ciudads' ON public.'Ciudads'.id_departamento=public.'Departamentos'.id INNER JOIN public.'Usuarios' ON public.'Usuarios'.id_ciudad=public.'Ciudads'.id;", { type: sequelize.QueryTypes.SELECT})
                 where: {
                     activo: true
                 },
@@ -66,14 +65,16 @@ module.exports = {
             .catch((error) => res.status(400).send(error))
     },
     add(req, res) {
+        let pass = sha_512.createPass(req.body.password)
         return Usuario
             .create({
                 id_ciudad: req.body.id_ciudad,
                 nombres: req.body.nombres,
                 apellidos: req.body.apellidos,
                 email: req.body.email,
-                password: req.body.password,
-                activo: true
+                password: pass,
+                activo: true,
+                id_rol: 2
             })
             .then(usuario => res.status(201).send(usuario))
             .catch(error => res.status(400).send(error));
@@ -92,13 +93,14 @@ module.exports = {
                         message: 'Usuario no encontrado'
                     });
                 }
+                let pass = sha_512.createPass(req.body.password)
                 return usuario
                     .update({
                         id_ciudad: req.body.id_ciudad,
                         nombres: req.body.nombres,
                         apellidos: req.body.apellidos,
                         email: req.body.email,
-                        password: req.body.password
+                        password: pass
                     })
                     .then(usuario => res.status(200).send(usuario))
                     .catch(error => res.status(400).send(error));
@@ -112,13 +114,9 @@ module.exports = {
             .findById(req.params.id)
             .then(usuario => {
                 if (!usuario) {
-
                     return res.status(404).send({
                         message: 'Usuario no encontrado'
-
-
                     });
-
                 }
                 Usuario.destroy({
                     where: {
@@ -155,7 +153,6 @@ module.exports = {
                     nombres: {
                         $ilike: "%" + req.body.nombres + "%", 
                     }
-
                 }
             })
             .then((usuario) => {
@@ -169,7 +166,6 @@ module.exports = {
             .catch((error) => {
                 res.status(400).send(error);
                 console.log(error);
-
             })
     }
 };

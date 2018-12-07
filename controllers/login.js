@@ -1,15 +1,16 @@
 const Usuario = require('../models').Usuario;
 const Rol = require('../models').Rol;
 const jwt = require('jsonwebtoken');
-var express = require('express');
+const sha_512 = require('../encrypt/hash');
 
 module.exports = {
     validar(req, res) {
+        let prueba = sha_512.createPass(req.body.password)
         return Usuario
             .find({
                 where: {
                     email: req.body.email,
-                    password: req.body.password                
+                    password: prueba                
                 },
                 include: [{
                     model: Rol,
