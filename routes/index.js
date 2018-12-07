@@ -49,6 +49,8 @@ router.delete('/api/usuario/:id', usuarioController.delete);
 router.post('/api/login', loginController.validar);
 
 /* Rest de la actividad*/
+router.post('/api/conteo_actividad', actividadController.conteo);
+router.post('/api/actividades_invitados', actividadController.actividadesUser);
 router.get('/api/actividad', actividadController.list);
 router.post('/api/actividad_usuario', actividadController.createUser);
 router.get('/api/actividad/:id', actividadController.getById);

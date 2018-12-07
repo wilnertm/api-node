@@ -3,7 +3,7 @@ const Usuario = require('../models').Usuario
 const Actividades_invitado = require('../models').Actividades_invitado
 const Opcione = require('../models').Opcione;
 const Cliente = require('../models').Cliente;
-const db = require('../models/index') 
+const db = require('../models/index')
 
 module.exports = {
     list(req, res) {
@@ -89,15 +89,11 @@ module.exports = {
             })
     },
     add(req, res) {
-        // return Actividade
         Actividade.create({
-            // include: [{
-            //     model: Actividades_invitado,
-            //     as: 'actividadesInvitado',
-            // }],
             fecha_inicio: req.body.fecha_inicio,
             fecha_fin: req.body.fecha_fin,
             asunto: req.body.asunto,
+            descripcion: req.body.descripcion,
             tipo_actividad: req.body.tipo_actividad,
             tipo: req.body.tipo,
             estado_actividad: req.body.estado_actividad,
@@ -114,7 +110,7 @@ module.exports = {
                         as: 'actividadesInvitado',
                     }],
                     acepto: true,
-                    id_usuario: req.body.creadoPor,
+                    id_usuario: actividades.creado_por,
                     id_actividad: actividades.id,
                 });
                 let invitados = req.body.usuario
@@ -231,16 +227,55 @@ module.exports = {
                 ],
             })
             .then((results) => {
-                db.sequelize.query(`SELECT fecha_inicio as start, fecha_fin as end,asunto as title FROM "Actividades" INNER JOIN "Actividades_invitados" ON "Actividades".id="Actividades_invitados".id_actividad 
-                WHERE "Actividades_invitados".id_usuario = ${req.body.creadoPor}; ` )
-                .spread((actividades, metadata) => {
-                    // Results will be an empty array and metadata will contain the number of affected rows.
-                    res.status(200).send(actividades)
-                })              
+                db.sequelize.query(`SELECT "Actividades".id, "Actividades".fecha_inicio as start, "Actividades".fecha_fin as end,"Actividades".asunto as title FROM "Actividades" INNER JOIN "Actividades_invitados" ON "Actividades".id="Actividades_invitados".id_actividad 
+                WHERE "Actividades_invitados".id_usuario = ${req.body.creadoPor} AND "Actividades_invitados".acepto = true; `)
+                    .spread((actividades, metadata) => {
+                        // Results will be an empty array and metadata will contain the number of affected rows.
+                        res.status(200).send(actividades)
+                    })
             })
             .catch((error) => {
                 console.log(error);
                 res.status(400).send(error);
             });
     },
+    conteo(req, res) {
+        return Actividade
+            .findOne({
+                where: {
+                    creado_por: req.body.creadoPor,
+                }
+            })
+            .then((actividades) => {
+                db.sequelize.query(`SELECT COUNT (id) FROM "Actividades_invitados" WHERE id_usuario =${req.body.creadoPor} AND acepto= false LIMIT 1;`)
+                    .spread((conteo, metadata) => {
+                        // Results will be an empty array and metadata will contain the number of affected rows.
+                        res.status(200).send(conteo)
+                    })
+            })
+            .catch((error) => {
+                console.log(error);
+                res.status(400).send(error);
+            });
+    },
+    actividadesUser(req, res) {
+        return Actividade
+            .findOne({
+                where: {
+                    creado_por: req.body.creadoPor,
+                }
+            })
+            .then((actividades) => {
+                db.sequelize.query(`SELECT * FROM "Actividades" INNER JOIN "Actividades_invitados" ON "Actividades".id="Actividades_invitados".id_actividad 
+                WHERE "Actividades_invitados".id_usuario =  ${req.body.creadoPor} AND "Actividades_invitados".acepto = false;`)
+                    .spread((results, metadata) => {
+                        // Results will be an empty array and metadata will contain the number of affected rows.
+                        res.status(200).send(results)
+                    })
+            })
+            .catch((error) => {
+                console.log(error);
+                res.status(400).send(error);
+            });
+    }
 };

@@ -73,6 +73,7 @@ module.exports = {
         })
         .then( actividades_invitados =>{
             if(!actividades_invitados){
+                console.log("PRUEBA ERROR",actividades_invitados)
                 return res.status(404).send({
                     message: 'ActividadInvitado no encontrada'
                 });

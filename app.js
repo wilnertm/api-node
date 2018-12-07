@@ -35,6 +35,8 @@ app.use(function (req, res, next) {
       prueba1(req, res, next);
       console.log("Requires");
       console.log("Token", req.token);
+      console.log("Cuerpo", req.body);
+      console.log("Parametros", req.params);
       // console.log("Autorizacion", req.headers['authorization']);
 
     } else {
