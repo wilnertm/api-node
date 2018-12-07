@@ -33,16 +33,10 @@ app.use(function (req, res, next) {
   if (req.method != "OPTIONS") {
     if (req.originalUrl != '/api/login') {
       prueba1(req, res, next);
-      console.log("Requires");
-      console.log("Token", req.token);
-      console.log("Cuerpo", req.body);
-      console.log("Parametros", req.params);
-      // console.log("Autorizacion", req.headers['authorization']);
-
+      // console.log("Token", req.token);
     } else {
       console.log("Error en req.originalURl");
       next();
-      // return;
     }
   } else {
     next();
