@@ -108,6 +108,7 @@ router.post('/api/cliente/cn', clienteController.findByCn);
 router.put('/api/cliente/:id', clienteController.update);
 router.delete('/api/cliente/:id', clienteController.delete);
 router.post('/api/findCliente', clienteController.complete);
+router.post('/api/carga_clientes', clienteController.uploadFile);
 
 
 module.exports = router;

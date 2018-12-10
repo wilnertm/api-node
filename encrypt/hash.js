@@ -8,7 +8,7 @@ var hash = {
     createPassword(salt, pass) {
         return sha512(salt + pass);
     },
-    createPass( pass) {
+    createPass(pass) {
         return sha512(pass);
     }
 }
