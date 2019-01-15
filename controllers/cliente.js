@@ -3,7 +3,7 @@ const Correo = require('../models').Correo;
 const Telefono = require('../models').Telefono;
 const Ciudads = require('../models').Ciudad;
 const fs = require('fs');
-const busboy = require('busboy');
+const Busboy = require('busboy');
 
 
 
@@ -36,7 +36,7 @@ module.exports = {
                     model: Ciudads,
                     as: 'ciudadCliente',
                 }],
-                limit: 10,
+                limit: 5,
                 offset: req.body.rango,
             })
             .then((cliente) => res.status(200).send(cliente))
@@ -229,8 +229,9 @@ module.exports = {
             })
     },
     uploadFile(req, res) {
+        console.log(req.busboy,"RequestUpload");
         let fstream;
-        req.pipe(req.busboy);
+        // req.pipe(req.busboy);
         let nombre = "";
         let cn = "";
         let nit = "";
@@ -254,10 +255,6 @@ module.exports = {
                         convertedArray[newStringConverted] = rows[i][1]
                     } 
                     Cliente.add({
-                        // where: {
-                        //     codigo_cliente: {
-                        //         $in: clientesToConsult
-                        //     }
                         nombre: nombre,
                         activo: true,
                         cn: cn,

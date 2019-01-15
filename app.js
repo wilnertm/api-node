@@ -29,19 +29,19 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use(function (req, res, next) {
-  if (req.method != "OPTIONS") {
-    if (req.originalUrl != '/api/login') {
-      prueba1(req, res, next);
-      // console.log("Token", req.token);
-    } else {
-      console.log("Error en req.originalURl");
-      next();
-    }
-  } else {
-    next();
-  }
-});
+// app.use(function (req, res, next) {
+//   if (req.method != "OPTIONS") {
+//     if (req.originalUrl != '/api/login') {
+//       prueba1(req, res, next);
+//       // console.log("Token", req.token);
+//     } else {
+//       console.log("Error en req.originalURl");
+//       next();
+//     }
+//   } else {
+//     next();
+//   }
+// });
 
 function prueba1(req, res, next) {
   const bearerHeader = req.headers['authorization'];
